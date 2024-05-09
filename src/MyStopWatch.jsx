@@ -108,25 +108,30 @@ function Mystopwatch() {
 
     useEffect(() => {
         let intervalId;
-
+    
         if (start) {
             intervalId = setInterval(() => {
                 setTime((prevTime) => {
                     const newTime = prevTime.split(":");
-                    const mins = parseInt(newTime[0]);
-                    const secs = parseInt(newTime[1]);
-
-                    const totalSeconds = mins * 60 + secs + 1;
+                    let mins = parseInt(newTime[0]);
+                    let secs = parseInt(newTime[1]);
+    
+                    secs += 1;
+                    if (secs === 60) {
+                        mins += 1;
+                        secs = 0;
+                    }
+                    
+                    const totalSeconds = mins * 60 + secs;
                     return formatTime(totalSeconds);
                 });
             }, 1000);
         } else {
             clearInterval(intervalId);
         }
-
+    
         return () => clearInterval(intervalId);
     }, [start]);
-
     return (
         <div>
             <h1>Stopwatch</h1>
