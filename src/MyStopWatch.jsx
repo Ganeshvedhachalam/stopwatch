@@ -54,17 +54,17 @@ function Mystopwatch(){
             height:"300px", width:"600px" ,border:"2px solid black"
             }}>
             <h1>Stopwatch</h1>
-            <h2>Time :{time}</h2>
+            <h2>Time: {time}</h2>
 
             <div>
             <button onClick={handleStart} style={{height:"50px" ,width:"100px",margin:"10px"}}>
                 {
-                    start ? <h2> stop </h2> : <h2>start </h2>
+                    start ? <h2> stop </h2> : <h2>Start </h2>
                 }
 
             </button>
 
-            <button  onClick={handleReset} style={{height:"50px" ,width:"100px",margin:"10px"}}><h2>reset </h2>
+            <button  onClick={handleReset} style={{height:"50px" ,width:"100px",margin:"10px"}}><h2>Reset </h2>
 
             </button>
             </div>
