@@ -103,10 +103,15 @@ function Mystopwatch() {
     };
 
     const formatTime = (seconds) => {
-        const mins = Math.floor(seconds / 60).toString().padStart(2, "0");
+        const mins = Math.floor(seconds / 60).toString();
         const secs = (seconds % 60).toString().padStart(2, "0");
-        return `${mins}:${secs}`;
+    
+        // Check if minutes is less than 10 and prepend leading zero if necessary
+        const formattedMins = mins.length === 1 ? mins : `0${mins}`;
+    
+        return `${formattedMins}:${secs}`;
     };
+    
     
     useEffect(() => {
         let intervalId;
@@ -136,7 +141,7 @@ function Mystopwatch() {
     
 
 
-    
+
     return (
         <div>
             <h1>Stopwatch</h1>
