@@ -91,11 +91,7 @@ function Mystopwatch() {
     const [time, setTime] = useState("0:00");
     const [start, setStart] = useState(false);
 
-    const formatTime = (seconds) => {
-        const mins = Math.floor(seconds / 60).toString().padStart(2, "0");
-        const secs = (seconds % 60).toString().padStart(2, "0");
-        return `${mins}:${secs}`;
-    };
+
 
     const handleStart = () => {
         setStart((prev) => !prev);
@@ -106,24 +102,29 @@ function Mystopwatch() {
         setStart(false);
     };
 
+    const formatTime = (seconds) => {
+        const mins = Math.floor(seconds / 60).toString().padStart(2, "0");
+        const secs = (seconds % 60).toString().padStart(2, "0");
+        return `${mins}:${secs}`;
+    };
+    
     useEffect(() => {
         let intervalId;
     
         if (start) {
             intervalId = setInterval(() => {
                 setTime((prevTime) => {
-                    const newTime = prevTime.split(":");
-                    let mins = parseInt(newTime[0]);
-                    let secs = parseInt(newTime[1]);
+                    const [mins, secs] = prevTime.split(":").map(Number);
     
-                    secs += 1;
-                    if (secs === 60) {
-                        mins += 1;
-                        secs = 0;
+                    let newSecs = secs + 1;
+                    let newMins = mins;
+    
+                    if (newSecs === 60) {
+                        newSecs = 0;
+                        newMins += 1;
                     }
-                    
-                    const totalSeconds = mins * 60 + secs;
-                    return formatTime(totalSeconds);
+    
+                    return formatTime(newMins * 60 + newSecs);
                 });
             }, 1000);
         } else {
@@ -132,6 +133,10 @@ function Mystopwatch() {
     
         return () => clearInterval(intervalId);
     }, [start]);
+    
+
+
+    
     return (
         <div>
             <h1>Stopwatch</h1>
